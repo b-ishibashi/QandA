@@ -1,0 +1,22 @@
+main {
+    padding: 100px;
+}
+
+.bg-image {
+    opacity: 0.3;
+}
+
+.contents {
+    position: relative;
+}
+
+.contents p {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    padding: 15px 30px;
+    text-align: center;
+    width: 300px;
+}
