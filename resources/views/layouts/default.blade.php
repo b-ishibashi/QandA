@@ -13,12 +13,7 @@
 </head>
 <body>
 <header class="bg-info mb-3 py-1 fixed-top">
-    <ul class="nav navbar">
-        <li class="nav-item">
-            <a class="nav-link active text-white h3" href="/">QandA</a>
-        </li>
-        @yield('nav')
-    </ul>
+    @yield('header')
 </header>
 <main class="mb-3">
 @yield('content')

@@ -2,6 +2,14 @@
 
 @section('title', 'QandA')
 
+@section('header')
+    <ul class="nav navbar">
+        <li class="nav-item">
+            <a class="nav-link active text-white h3" href="/">QandA</a>
+        </li>
+    </ul>
+@endsection
+
 @section('content')
     <div class="container py-5">
         <h1 class="text-center mb-3">アカウント登録</h1>

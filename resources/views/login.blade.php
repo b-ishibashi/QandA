@@ -2,6 +2,14 @@
 
 @section('title', 'QandA')
 
+@section('header')
+    <ul class="nav navbar">
+        <li class="nav-item">
+            <a class="nav-link active text-white h3" href="/">QandA</a>
+        </li>
+    </ul>
+@endsection
+
 @section('content')
     <div class="container py-5">
         <h1 class="text-center mb-3">ログイン</h1>
@@ -27,7 +35,7 @@
                 @endif
             </div>
             <div class="form-group text-center">
-                <input type="submit" value="登録" class="btn btn-primary w-50">
+                <input type="submit" value="ログイン" class="btn btn-primary w-50">
             </div>
             <p class="text-center"><a href="/add">アカウント登録</a></p>
         </form>

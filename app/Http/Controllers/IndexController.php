@@ -15,7 +15,9 @@ class IndexController extends Controller
     public function index()
     {
         if (Auth::check()) {
-            return view('home.home');
+            $user = Auth::user();
+            return redirect('/home')
+                ->with('user', $user);
         } else {
             return view('index');
         }
