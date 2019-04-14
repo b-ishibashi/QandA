@@ -27,6 +27,5 @@ class AppServiceProvider extends ServiceProvider
         // utfmb4への対応
         // 767bytes以上の文字列が入らないようにする
         Schema::defaultStringLength(191);
-
     }
 }

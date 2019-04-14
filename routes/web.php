@@ -14,8 +14,8 @@
 Route::get('/', 'IndexController@index');
 Route::get('/add', 'IndexController@add');
 Route::post('/add', 'IndexController@create');
-Route::get('/login', 'IndexController@showlogin');
-Route::post('/login', 'IndexController@dologin');
+Route::get('/login', 'IndexController@showLoginForm');
+Route::post('/login', 'IndexController@login');
 Route::get('/home', 'HomeController@index');
 Route::get('/home/profile', 'HomeController@showprofile');
 Route::get('/home/profile/logout', 'HomeController@logout');

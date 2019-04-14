@@ -14,11 +14,9 @@ class IndexController extends Controller
     // ログイン前のhome画面に関するコントローラ
     public function index()
     {
-        if (Auth::check())
-        {
+        if (Auth::check()) {
             return view('home.home');
-        } else
-        {
+        } else {
             return view('index');
         }
     }
@@ -39,13 +37,11 @@ class IndexController extends Controller
         $validator = Validator::make($request->all(), $rules);
 
         // validate
-        if ($validator->fails())
-        {
+        if ($validator->fails()) {
             return redirect('/add')
                 ->withErrors($validator)
                 ->withInput();
-        } else
-        {
+        } else {
             // create user
             $user = new User();
             $user->name = $request->name;
@@ -54,15 +50,16 @@ class IndexController extends Controller
             $user->save();
         }
 
-        return redirect('/login');
+        Auth::loginUsingId($user->id);
+        return redirect('/home');
     }
 
-    public function showlogin()
+    public function showLoginForm()
     {
         return view('login');
     }
 
-    public function dologin(Request $request)
+    public function login(Request $request)
     {
         $rules = [
             'email' => 'required',
@@ -71,24 +68,20 @@ class IndexController extends Controller
 
         $validator = Validator::make($request->all(), $rules);
         // validate
-        if ($validator->fails())
-        {
+        if ($validator->fails()) {
             return redirect('/login')
                 ->withErrors($validator)
                 ->withInput();
         }
 
         // ログイン検証
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->password]))
-        {
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             return redirect('/home')
                 ->with('success', 'ログインしました');
-        } else
-        {
+        } else {
             throw ValidationException::withMessages([
                 'email' => [__('auth.failed')],
             ]);
         }
-
     }
 }
