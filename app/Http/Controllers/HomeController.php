@@ -9,14 +9,9 @@ class HomeController extends Controller
 {
     public function index()
     {
-        if (Auth::check())
-        {
-            $user = Auth::user();
-            return view('home.home')
-                ->with('user', $user);
-        } else {
-            return redirect('/');
-        }
+        $user = Auth::user();
+        return view('home.home')
+            ->with('user', $user);
     }
 
     public function showprofile()

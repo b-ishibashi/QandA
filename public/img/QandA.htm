@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<!-- saved from url=(0025)http://127.0.0.1:8000/add -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Required meta tags -->
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="./QandA_files/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" href="./QandA_files/style.css">
+
+    <title>QandA</title>
+</head>
+<body>
+<header class="bg-info mb-3 py-1 fixed-top">
+        <ul class="nav navbar">
+        <li class="nav-item">
+            <a class="nav-link active text-white h3" href="http://127.0.0.1:8000/">QandA</a>
+        </li>
+    </ul>
+</header>
+<main class="mb-3">
+    <div class="container py-5">
+        <h1 class="text-center mb-3">アカウント登録</h1>
+                <form method="post" action="http://127.0.0.1:8000/add">
+            <input type="hidden" name="_token" value="0Ab4AF3RxVK8MydBsigSv1LwolZyNK75FHVrFqfr">            <div class="form-group">
+                <label for="user_name">名前</label>
+                <br>
+                <input class="form-control" type="text" name="name" id="user_name" value="">
+                            </div>
+            <div class="form-group">
+                <label for="user_email">メールアドレス</label>
+                <br>
+                <input class="form-control" type="email" name="email" id="user_email" value="">
+                            </div>
+            <div class="form-group">
+                <label for="user_password">パスワード</label>
+                <br>
+                <input class="form-control" type="password" name="password" id="user_password">
+                            </div>
+            <div class="form-group">
+                <label for="user_password_confirmation">パスワード(確認用)</label>
+                <br>
+                <input class="form-control" type="password" name="password_confirmation" id="user_password_confirmation">
+                            </div>
+            <div class="form-group text-center">
+                <input type="submit" value="登録" class="btn btn-primary w-50">
+            </div>
+        </form>
+        <p class="text-center"><a href="http://127.0.0.1:8000/login">ログイン</a></p>
+    </div>
+</main>
+<footer class="footer">
+    <div class="container">
+        <p class="text-muted text-center border border-bottom-0 border-right-0 border-left-0 pt-3">Copy right ishibashi 2019</p>
+    </div>
+</footer>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="./QandA_files/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="./QandA_files/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+<script src="./QandA_files/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+
+</body></html>
