@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class PostController extends Controller
+class QuestionController extends Controller
 {
     public function create()
     {
@@ -61,6 +61,8 @@ class PostController extends Controller
                 ->withErrors($validator)
                 ->withInput();
         }
+
+
 
         return view('home.confirm')
             ->with('request', $request);
