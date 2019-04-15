@@ -16,7 +16,7 @@
                 <a href="/home" class="nav-link">質問一覧</a>
             </li>
             <li class="nav-item">
-                <a href="" class="nav-link">質問する</a>
+                <a href="/home/create" class="nav-link">質問する</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/home/profile">プロフィール</a>
@@ -30,4 +30,14 @@
     <div class="container">
         <h1 class="display-4">質問一覧</h1>
     </div>
+    @foreach($questions as $question)
+        <div class="question">
+            <div>{{ $question->id }}</div>
+            <div>{{ $question->title }}</div>
+            <div>{{ $question->body }}</div>
+            @foreach($question->tags as $tag)
+                <div>{{ $tag->title }}</div>
+            @endforeach
+        </div>
+    @endforeach
 @endsection

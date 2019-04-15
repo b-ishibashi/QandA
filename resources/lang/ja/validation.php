@@ -150,6 +150,8 @@ return [
     'attributes' => [
         'email' => 'メールアドレス',
         'password' => 'パスワード',
-        'name' => '名前'
+        'name' => '名前',
+        'title' => 'タイトル',
+        'body' => '内容'
     ],
 ];

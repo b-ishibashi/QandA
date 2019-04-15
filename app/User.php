@@ -40,4 +40,9 @@ class User extends Authenticatable
     protected $rules = [
         'name'
     ];
+
+    public function questions()
+    {
+        return $this->hasMany('App\Question');
+    }
 }

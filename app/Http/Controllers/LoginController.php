@@ -37,6 +37,9 @@ class LoginController extends Controller
             ]);
         }
 
+        //2重送信防止
+        $request->session()->regenerate();
+
         return redirect('/home')
             ->with('success', 'ログインしました');
     }

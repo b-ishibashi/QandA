@@ -16,7 +16,7 @@
                     <a href="/home" class="nav-link">質問一覧</a>
                 </li>
                 <li class="nav-item">
-                    <a href="" class="nav-link">質問する</a>
+                    <a href="/home/create" class="nav-link">質問する</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/home/profile">プロフィール</a>
@@ -27,7 +27,45 @@
 @endsection
 
 @section('content')
-    <div class="container">
-
+<form method="post" action="/home/create" class="form-group">
+    @csrf
+    <div class="container post-form">
+        <div class="title-form row">
+            <label for="title" class="col-sm-3">タイトル</label>
+            <input class="form-control col-sm-9" type="text" name="title" id="title" value="{{ old('title') }}">
+            @if ($errors->has('title'))
+                <label class="col-sm-3"></label><p class="col-sm-9 text-danger">*{{ $errors->first('title') }}</p>
+            @else
+                <label class="col-sm-3"></label><p class="col-sm-9"></p>
+            @endif
+        </div>
+        <div class="body-form row">
+            <label for="body" class="col-sm-3">質問内容</label>
+            <textarea class="form-control col-sm-9" maxlength="2000" name="body" id="body">{{ old('body') }}</textarea>
+            @if ($errors->has('title'))
+                <label class="col-sm-3"></label><p class="col-sm-7 text-danger">*{{ $errors->first('body') }}</p>
+            @else
+                <label class="col-sm-3"></label><p class="col-sm-7"></p>
+            @endif
+        </div>
+        <div class="category mb-4 row">
+            <label for="category" class="col-sm-3">カテゴリー選択</label>
+            <select class="form-control col-sm-5" id="category" name="category">
+                @foreach($categories as $category)
+                    <option value="{{ $category }}">{{ $category }}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="file mb-4 row">
+            <label for="file" class="col-sm-3">画像を添付</label>
+            <input class="form-control-file col-sm-6" type="file" id="file">
+        </div>
+        <div class="send text-center">
+            <input class="btn btn-primary" type="submit" value="次へ">
+        </div>
     </div>
+</form>
 @endsection
+
+
+

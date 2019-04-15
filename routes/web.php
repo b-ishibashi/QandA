@@ -22,6 +22,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/home', 'HomeController@index');
     Route::get('/home/profile', 'HomeController@showprofile');
     Route::get('/home/profile/logout', 'HomeController@logout');
+    Route::get('/home/create', 'PostController@create');
+    Route::post('/home/create', 'PostController@confirm');
+    Route::post('/home/confirm', 'PostController@store')->middleware('throttle:1,1');
 });
 
 
