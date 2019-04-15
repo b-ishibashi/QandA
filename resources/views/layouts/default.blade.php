@@ -12,7 +12,7 @@
     <title>@yield('title')</title>
 </head>
 <body>
-<header class="bg-info mb-3 py-1 fixed-top">
+<header class="bg-info mb-3 fixed-top">
     @yield('header')
 </header>
 <main class="mb-3">

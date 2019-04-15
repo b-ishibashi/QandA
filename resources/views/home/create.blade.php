@@ -5,7 +5,7 @@
 @section('header')
     <nav class="navbar navbar-expand-sm navbar-light">
         <h2>
-            <a class="navbar-brand text-white" href="/">QandA</a>
+            <a class="navbar-brand text-white" href="/home">QandA</a>
         </h2>
         <button class="navbar-toggler" data-toggle="collapse" data-target="#menu">
             <span class="navbar-toggler-icon"></span>
@@ -13,10 +13,13 @@
         <div id="menu" class="collapse navbar-collapse">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a href="/add" class="nav-link">アカウント登録</a>
+                    <a href="/home" class="nav-link">質問一覧</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/login">ログイン</a>
+                    <a href="" class="nav-link">質問する</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/home/profile">プロフィール</a>
                 </li>
             </ul>
         </div>
@@ -24,11 +27,7 @@
 @endsection
 
 @section('content')
-    <div class="contents">
-        <img class="rounded-circle mx-auto d-block bg-image" src="{{ asset('/img/bg.png') }}">
-        <p class="display-4">
-            QandA<br>
-            <a class="btn btn-primary" href="/add">無料で始める</a>
-        </p>
+    <div class="container">
+
     </div>
 @endsection
