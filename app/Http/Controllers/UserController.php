@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Intervention\Image\Facades\Image;
 
 
 class UserController extends Controller
@@ -34,7 +35,8 @@ class UserController extends Controller
         $user = Auth::user()->find($id);
         $rules = [
             'name' => 'required',
-            'email' => 'required|email'
+            'email' => 'required|email',
+            'user_image' => 'file|mimes:jpeg,bmp,png'
         ];
 
         $validator = Validator::make($request->all(), $rules);
@@ -47,11 +49,24 @@ class UserController extends Controller
                 ->withInput();
         }
 
+        //プロフィール画像が変更されれば反映
+        if ($request->hasFile('user_image'))
+        {
+            if ($request->file('user_image')->isValid())
+            {
+                $avatar = $request->file('user_image');
+                $filePath = basename($request->user_image->store('public/userimage'));
+                //300×300にリサイズ
+                Image::make($avatar)->resize(320, 226)->save(storage_path('app/public/userimage/' . $filePath));
+            }
+        }
+
         //update
         $user->name = $request->name;
         $user->email = $request->email;
+        //画像が変更されていれば画像変更、なければnoimageのパスを代入
+        isset($filePath) ? $user->image = $filePath : $user->image = basename(asset('storage/noimage.jpg'));
         $user->save();
-        return redirect()
-            ->action('UserController@edit', $id);
+        return redirect()->action('UserController@showprofile');
     }
 }

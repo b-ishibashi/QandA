@@ -29,6 +29,9 @@
 @section('content')
     <div id="wrapper">
         <div class="container">
+            <section class="user-icon d-flex justify-content-center">
+                <img src="{{ asset('storage/userimage/' . $user->image) }}" class="rounded-circle">
+            </section>
             <small class="d-flex justify-content-end mb-1"><a href="{{ action('UserController@edit', ['id' => $user->id]) }}">プロフィールを編集する</a></small>
             <section class="profile-block">
                 <table class="table table-bordered">
@@ -36,7 +39,7 @@
                     <tr><th>メールアドレス: </th><td>{{ $user->email }}</td></tr>
                 </table>
             </section>
-            <section class="logout-btn">
+            <section class="logout-btn text-center">
                 <a class="btn btn-secondary" href="/home/profile/logout">ログアウト</a>
             </section>
         </div>

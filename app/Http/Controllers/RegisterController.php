@@ -31,11 +31,13 @@ class RegisterController extends Controller
                 ->withErrors($validator)
                 ->withInput();
         }
+
         // create user
         $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
+        $user->image = basename(asset('storage/noimage.jpg'));
         $user->save();
 
         Auth::loginUsingId($user->id);

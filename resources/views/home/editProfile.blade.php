@@ -32,8 +32,12 @@
             <h1 class="text-center mb-3">プロフィールの編集</h1>
             <section class="profile-block">
                 <table class="table table-borderless">
-                    <form method="post" action="{{ action('UserController@update', ['id' => $user->id]) }}" class="form-group">
+                    <form method="post" action="{{ action('UserController@update', ['id' => $user->id]) }}" class="form-group" enctype="multipart/form-data">
                         @csrf
+                        <tr><th>ユーザーアイコン: </th><td><input type="file" name="user_image"></td></tr>
+                        @if($errors->has('user_image'))
+                            <tr><th></th><td><small class="text-danger">*{{ $errors->first('user_image') }}</small></td></tr>
+                        @endif
                         <tr><th>名前: </th><td><input class="form-control" type="text" name="name" value="{{ $user->name }}"></td></tr>
                         @if($errors->has('name'))
                             <tr><th></th><td><small class="text-danger">*{{ $errors->first('name') }}</small></td></tr>

@@ -154,6 +154,7 @@ return [
         'title' => 'タイトル',
         'body' => '内容',
         'image' => '画像',
-        'answer' => '回答'
+        'answer' => '回答',
+        'user_image' => 'ユーザーアイコン'
     ],
 ];
