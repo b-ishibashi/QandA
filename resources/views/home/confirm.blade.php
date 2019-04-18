@@ -35,11 +35,12 @@
             <tr><th>カテゴリー</th><td>{{ $request->category }}</td></tr>
         </table>
         <div class="send text-center">
-            <form method="post" action="/home/confirm">
+            <form method="post" action="/home/confirm" enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" name="title" value="{{ $request->title }}">
                 <input type="hidden" name="body" value="{{ $request->body }}">
                 <input type="hidden" name="category" value="{{ $request->category }}">
+                <input type="hidden" name="image" value="{{ $request->image }}">
                 <input class="btn btn-primary mb-2" type="submit" value="投稿する"><br>
             </form>
             <a href="/home/create">修正する</a>

@@ -28,16 +28,29 @@
 
 @section('content')
     <div class="container">
-        <h1 class="display-4">質問一覧</h1>
+        <h1 class="display-4 text-center mb-3">質問一覧</h1>
     </div>
-    @foreach($questions as $question)
-        <div class="question">
-            <div>{{ $question->id }}</div>
-            <div>{{ $question->title }}</div>
-            <div>{{ $question->body }}</div>
-            @foreach($question->tags as $tag)
-                <div>{{ $tag->title }}</div>
-            @endforeach
-        </div>
-    @endforeach
+    <div class="container pagination mb-3">
+        <span class="mx-auto">{{ $questions->links() }}</span>
+    </div>
+    <div class="container">
+        @foreach($questions as $question)
+            <section class="question-block list-group mb-3">
+                <a href="{{ action('QuestionController@show', ['id' => $question->id]) }}" class="list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-between">
+                        <small>{{ $question->user->name }} さん</small>
+                        <small class="text-muted">{{ $question->updated_at }}</small>
+                    </div>
+                    <h4 class="mb-1">{{ $question->title }}</h4>
+                    <p class="mb-1 question_body">{{ $question->body }}</p>
+                    @foreach($question->tags as $tag)
+                        <small class="text-muted">カテゴリ : <span class="badge badge-success ml-1">{{ $tag->title }}</span></small>
+                    @endforeach
+                </a>
+            </section>
+        @endforeach
+    </div>
+    <div class="container pagination">
+        <span class="mx-auto">{{ $questions->links() }}</span>
+    </div>
 @endsection

@@ -27,18 +27,15 @@
 @endsection
 
 @section('content')
-    <div id="wrapper">
-        <div class="container">
-            <small class="d-flex justify-content-end mb-1"><a href="{{ action('UserController@edit', ['id' => $user->id]) }}">プロフィールを編集する</a></small>
-            <section class="profile-block">
-                <table class="table table-bordered">
-                    <tr><th>名前: </th><td>{{ $user->name }}</td></tr>
-                    <tr><th>メールアドレス: </th><td>{{ $user->email }}</td></tr>
-                </table>
-            </section>
-            <section class="logout-btn">
-                <a class="btn btn-secondary" href="/home/profile/logout">ログアウト</a>
-            </section>
-        </div>
+    <div class="container">
+
+        <h2 class="mb-3 pb-3 d-flex justify-content-center border border-left-0 border-right-0 border-top-0">{{ $question->title }}</h2>
+        @foreach($question->tags as $tag)
+            <small class="text-muted text-right d-flex justify-content-end">カテゴリ : {{ $tag->title }}</small>
+        @endforeach
+        <p>{{ $question->body }}</p>
+        <p class="text-center">
+            <a class="btn btn-primary w-50" href="{{ action('AnswerController@create', ['id' => $question->id]) }}">次へ</a>
+        </p>
     </div>
 @endsection

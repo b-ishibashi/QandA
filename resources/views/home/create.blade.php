@@ -27,7 +27,7 @@
 @endsection
 
 @section('content')
-<form method="post" action="/home/create" class="form-group">
+<form method="post" action="/home/create" class="form-group" enctype="multipart/form-data">
     @csrf
     <div class="container post-form">
         <div class="title-form row">
@@ -56,12 +56,9 @@
                 @endforeach
             </select>
         </div>
-        <div class="file mb-4 row">
-            <label for="file" class="col-sm-3">画像を添付</label>
-            <input class="form-control-file col-sm-6" type="file" id="file">
-        </div>
         <div class="send text-center">
-            <input class="btn btn-primary" type="submit" value="次へ">
+            <input class="btn btn-primary mb-2" type="submit" value="次へ"><br>
+            <a href="/home">戻る</a>
         </div>
     </div>
 </form>

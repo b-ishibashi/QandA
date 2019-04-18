@@ -29,15 +29,22 @@
 @section('content')
     <div id="wrapper">
         <div class="container">
-            <small class="d-flex justify-content-end mb-1"><a href="{{ action('UserController@edit', ['id' => $user->id]) }}">プロフィールを編集する</a></small>
+            <h1 class="text-center mb-3">プロフィールの編集</h1>
             <section class="profile-block">
-                <table class="table table-bordered">
-                    <tr><th>名前: </th><td>{{ $user->name }}</td></tr>
-                    <tr><th>メールアドレス: </th><td>{{ $user->email }}</td></tr>
+                <table class="table table-borderless">
+                    <form method="post" action="{{ action('UserController@update', ['id' => $user->id]) }}" class="form-group">
+                        @csrf
+                        <tr><th>名前: </th><td><input class="form-control" type="text" name="name" value="{{ $user->name }}"></td></tr>
+                        @if($errors->has('name'))
+                            <tr><th></th><td><small class="text-danger">*{{ $errors->first('name') }}</small></td></tr>
+                        @endif
+                        <tr><th>メールアドレス: </th><td><input class="form-control" type="email" name="email" value="{{ $user->email }}"></td></tr>
+                        @if($errors->has('email'))
+                            <tr><th></th><td><small class="text-danger">*{{ $errors->first('email') }}</small></td></tr>
+                        @endif
+                        <tr><th></th><td><input class="btn btn-primary" type="submit" value="更新する"></td></tr>
+                    </form>
                 </table>
-            </section>
-            <section class="logout-btn">
-                <a class="btn btn-secondary" href="/home/profile/logout">ログアウト</a>
             </section>
         </div>
     </div>

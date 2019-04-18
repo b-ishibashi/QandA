@@ -1,5 +1,5 @@
 main {
-    padding: 100px;
+    padding-top: 100px;
 }
 
 .bg-image {
@@ -20,3 +20,27 @@ main {
     text-align: center;
     width: 300px;
 }
+
+.post-form label {
+    max-width: 150px;
+}
+
+.body-form textarea {
+    height: 200px;
+}
+
+.question_tag {
+    font-size: small;
+}
+
+.question_body {
+    max-width: 300px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.answer-form textarea {
+    height: 250px;
+}
+

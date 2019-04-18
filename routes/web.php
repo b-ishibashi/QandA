@@ -20,11 +20,18 @@ Route::middleware('guest')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/home', 'HomeController@index');
-    Route::get('/home/profile', 'HomeController@showprofile');
-    Route::get('/home/profile/logout', 'HomeController@logout');
+    Route::get('/home/profile', 'UserController@showprofile');
+    Route::get('/home/profile/logout', 'UserController@logout');
+    Route::get('/home/profile/edit/{id}', 'UserController@edit');
+    Route::post('/home/profile/edit/{id}', 'UserController@update');
     Route::get('/home/create', 'QuestionController@create');
     Route::post('/home/create', 'QuestionController@confirm');
+    Route::get('/home/confirm', function () {
+        return redirect('/home');
+    });
     Route::post('/home/confirm', 'QuestionController@store')->middleware('throttle:1,1');
+    Route::get('/home/question/{id}', 'QuestionController@show');
+    Route::post('/home/question/{id}/answer', 'AnswerController@store');
 });
 
 

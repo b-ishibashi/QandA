@@ -16,12 +16,6 @@ class CreateQuestionTagTable extends Migration
         Schema::create('question_tag', function (Blueprint $table) {
             $table->unsignedBigInteger('question_id');
             $table->unsignedBigInteger('tag_id');
-            $table->foreign('question_id')
-                ->references('id')
-                ->on('questions');
-            $table->foreign('tag_id')
-                ->references('id')
-                ->on('tags');
             $table->timestamps();
         });
     }

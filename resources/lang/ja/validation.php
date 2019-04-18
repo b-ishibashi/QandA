@@ -152,6 +152,8 @@ return [
         'password' => 'パスワード',
         'name' => '名前',
         'title' => 'タイトル',
-        'body' => '内容'
+        'body' => '内容',
+        'image' => '画像',
+        'answer' => '回答'
     ],
 ];

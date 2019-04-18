@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Question;
 use App\Tag;
+use App\Answer;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -50,19 +51,18 @@ class QuestionController extends Controller
     {
         $rules = [
             'title' => 'required|max:50',
-            'body' => 'required|max:2000'
+            'body' => 'required|max:2000',
         ];
 
         $validator = Validator::make($request->all(), $rules);
 
+        // バリデーション
         if ($validator->fails())
         {
             return redirect('/home/create')
                 ->withErrors($validator)
                 ->withInput();
         }
-
-
 
         return view('home.confirm')
             ->with('request', $request);
@@ -73,17 +73,26 @@ class QuestionController extends Controller
         // create question
         $question = new Question();
         $tag = new Tag();
+
         $question->title = $request->title;
         $question->body = $request->body;
         $question->user()->associate(Auth::user());
         $tag->title = $request->category;
+
         $question->save();
         $tag->save();
         $question->tags()->attach($tag);
 
         //2重送信防止
         $request->session()->regenerateToken();
-
         return redirect('/home');
+    }
+
+    public function show($id)
+    {
+        $question = Question::all()->find($id);
+        $answers = Question::all()->find($id)->answers;
+        return view('home.show')
+            ->with(['question' => $question, 'answers' => $answers]);
     }
 }

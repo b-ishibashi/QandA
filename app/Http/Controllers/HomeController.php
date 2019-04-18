@@ -10,25 +10,11 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $user = Auth::user();
-        $questions = Question::all();
+        $questions = Question::orderBy('id', 'desc')
+            ->paginate(10);
         return view('home.home')
             ->with([
-                'user' => $user,
-                'questions' => $questions
+                'questions' => $questions,
             ]);
-    }
-
-    public function showprofile()
-    {
-        $user = Auth::user();
-        return view('home.profile')
-            ->with('user', $user);
-    }
-
-    public function logout()
-    {
-        Auth::logout();
-        return redirect('/');
     }
 }
