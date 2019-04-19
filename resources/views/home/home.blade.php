@@ -27,10 +27,12 @@
 @endsection
 
 @section('content')
-    @if (session('success'))
+    @if (session('login'))
+    <div class="login-message d-flex justify-content-end">
         <div class="alert alert-success w-50" role="alert">
-            <strong>✓ ログインしました</strong>
+            <strong>✓ {{ session('login') }}</strong>
         </div>
+    </div>
     @endif
     <div class="container">
         <h1 class="display-4 text-center mb-3">質問一覧</h1>

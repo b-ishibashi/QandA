@@ -27,6 +27,13 @@
 @endsection
 
 @section('content')
+    @if (session('update'))
+        <div class="login-message d-flex justify-content-end">
+            <div class="alert alert-success w-50" role="alert">
+                <strong>✓ {{ session('update') }}</strong>
+            </div>
+        </div>
+    @endif
     <div id="wrapper">
         <div class="container">
             <div class="row">
@@ -66,4 +73,14 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('jquery')
+    <script>
+        'use strict';
+
+        $(function() {
+            $('.alert').fadeOut(3000);
+        });
+    </script>
 @endsection

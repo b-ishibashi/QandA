@@ -43,7 +43,7 @@ class RegisterController extends Controller
         Auth::loginUsingId($user->id);
 
         //ログインメッセージセット
-        session()->flash('success', 'ログインしました');
+        session()->flash('login', 'ログインしました');
 
         return redirect('/home');
     }

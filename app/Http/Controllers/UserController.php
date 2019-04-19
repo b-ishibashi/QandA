@@ -72,6 +72,10 @@ class UserController extends Controller
         //画像が変更されていれば画像変更、なければnoimageのパスを代入
         isset($filePath) ? $user->image = $filePath : $user->image = basename(asset('storage/noimage.jpg'));
         $user->save();
+
+        //更新メッセージセット
+        session()->flash('update', '更新しました');
+
         return redirect()->action('UserController@showprofile');
     }
 }

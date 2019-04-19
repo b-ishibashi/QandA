@@ -41,7 +41,7 @@ class LoginController extends Controller
         $request->session()->regenerate();
 
         //ログインメッセージセット
-        session()->flash('success', 'ログインしました');
+        session()->flash('login', 'ログインしました');
 
         return redirect('/home');
     }
