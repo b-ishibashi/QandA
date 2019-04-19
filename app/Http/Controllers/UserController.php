@@ -39,8 +39,8 @@ class UserController extends Controller
     {
         $user = Auth::user()->find($id);
         $rules = [
-            'name' => 'required',
-            'email' => 'required|email',
+            'name' => 'required|unique:users,name,' . $user->id,
+            'email' => 'required|email|unique:users,email,' . $user->id,
             'user_image' => 'file|mimes:jpeg,bmp,png'
         ];
 

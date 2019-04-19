@@ -38,11 +38,11 @@
                         @if($errors->has('user_image'))
                             <tr><th></th><td><small class="text-danger">*{{ $errors->first('user_image') }}</small></td></tr>
                         @endif
-                        <tr><th>名前: </th><td><input class="form-control" type="text" name="name" value="{{ $user->name }}"></td></tr>
+                        <tr><th>名前: </th><td><input class="form-control" type="text" name="name" value="{{ old('name') ?? $user->name }}"></td></tr>
                         @if($errors->has('name'))
                             <tr><th></th><td><small class="text-danger">*{{ $errors->first('name') }}</small></td></tr>
                         @endif
-                        <tr><th>メールアドレス: </th><td><input class="form-control" type="email" name="email" value="{{ $user->email }}"></td></tr>
+                        <tr><th>メールアドレス: </th><td><input class="form-control" type="email" name="email" value="{{ old('email') ?? $user->email }}"></td></tr>
                         @if($errors->has('email'))
                             <tr><th></th><td><small class="text-danger">*{{ $errors->first('email') }}</small></td></tr>
                         @endif
