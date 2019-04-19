@@ -49,16 +49,18 @@
             @empty
                 <p>回答者はいません.</p>
             @endforelse
-            <form method="post" action="{{ action('AnswerController@store', ['id' => $question->id]) }}" class="form-group" id="answer">
-                @csrf
-                <textarea class="form-control mb-3" name="answer">{{ old('answer') }}</textarea>
-                @if ($errors->has('answer'))
-                    <p class="text-danger">*{{ $errors->first('answer') }}</p>
-                @endif
-                <p class="text-center">
-                    <input class="btn btn-primary w-50" type="submit" value="この質問に回答する">
-                </p>
-            </form>
+            @if ($user->id !== $question->user_id)
+                <form method="post" action="{{ action('AnswerController@store', ['id' => $question->id]) }}" class="form-group" id="answer">
+                    @csrf
+                    <textarea class="form-control mb-3" name="answer">{{ old('answer') }}</textarea>
+                    @if ($errors->has('answer'))
+                        <p class="text-danger">*{{ $errors->first('answer') }}</p>
+                    @endif
+                    <p class="text-center">
+                        <input class="btn btn-primary w-50" type="submit" value="この質問に回答する">
+                    </p>
+                </form>
+            @endif
         </div>
     </div>
 @endsection

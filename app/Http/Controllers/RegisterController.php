@@ -41,6 +41,10 @@ class RegisterController extends Controller
         $user->save();
 
         Auth::loginUsingId($user->id);
+
+        //ログインメッセージセット
+        session()->flash('success', 'ログインしました');
+
         return redirect('/home');
     }
 }

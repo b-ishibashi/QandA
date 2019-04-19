@@ -92,7 +92,12 @@ class QuestionController extends Controller
     {
         $question = Question::all()->find($id);
         $answers = Question::all()->find($id)->answers;
+        $user = Auth::user();
         return view('home.show')
-            ->with(['question' => $question, 'answers' => $answers]);
+            ->with([
+                'question' => $question,
+                'answers' => $answers,
+                'user' => $user
+            ]);
     }
 }
