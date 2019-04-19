@@ -28,38 +28,42 @@
 
 @section('content')
     <div id="wrapper">
-        <section class="container user-profile mb-3">
-            <div class="user-icon text-center">
-                <img src="{{ asset('storage/userimage/' . $user->image) }}" class="rounded-circle">
-            </div>
-            <small class="d-flex justify-content-end mb-1"><a href="{{ action('UserController@edit', ['id' => $user->id]) }}">プロフィールを編集する</a></small>
-            <div class="profile-block">
-                <table class="table table-bordered">
-                    <tr><th>名前: </th><td>{{ $user->name }}</td></tr>
-                    <tr><th>メールアドレス: </th><td>{{ $user->email }}</td></tr>
-                </table>
-            </div>
-            <div class="logout-btn text-center">
-                <a class="btn btn-secondary" href="/home/profile/logout">ログアウト</a>
-            </div>
-        </section>
-        <section class="container user-question">
-            <h2>{{ $user->name }} さんの質問一覧</h2>
-            @foreach($questions as $question)
-                <div class="question-block list-group mb-3">
-                    <a href="{{ action('QuestionController@show', ['id' => $question->id]) }}" class="list-group-item list-group-item-action flex-column align-items-start">
-                        <div class="d-flex w-100 justify-content-between">
-                            <small>{{ $question->user->name }} さん</small>
-                            <small class="text-muted">{{ $question->updated_at }}</small>
+        <div class="container">
+            <div class="row">
+                <section class="user-profile mb-3 mr-5">
+                    <div class="user-icon text-center">
+                        <img src="{{ asset('storage/userimage/' . $user->image) }}" class="rounded-circle">
+                    </div>
+                    <small class="d-flex justify-content-end mb-1"><a href="{{ action('UserController@edit', ['id' => $user->id]) }}">プロフィールを編集する</a></small>
+                    <div class="profile-block">
+                        <table class="table table-bordered">
+                            <tr><th>名前: </th><td>{{ $user->name }}</td></tr>
+                            <tr><th>メールアドレス: </th><td>{{ $user->email }}</td></tr>
+                        </table>
+                    </div>
+                    <div class="logout-btn text-center">
+                        <a class="btn btn-secondary" href="/home/profile/logout">ログアウト</a>
+                    </div>
+                </section>
+                <section class="user-questions">
+                    <h2>{{ $user->name }} さんの質問一覧</h2>
+                    @foreach($questions as $question)
+                        <div class="question-block list-group mb-3">
+                            <a href="{{ action('QuestionController@show', ['id' => $question->id]) }}" class="list-group-item list-group-item-action flex-column align-items-start">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <small>{{ $question->user->name }} さん</small>
+                                    <small class="text-muted">{{ $question->updated_at }}</small>
+                                </div>
+                                <h4 class="mb-1">{{ $question->title }}</h4>
+                                <p class="mb-1 question_body">{{ $question->body }}</p>
+                                @foreach($question->tags as $tag)
+                                    <small class="text-muted">カテゴリ : <span class="badge badge-success ml-1">{{ $tag->title }}</span></small>
+                                @endforeach
+                            </a>
                         </div>
-                        <h4 class="mb-1">{{ $question->title }}</h4>
-                        <p class="mb-1 question_body">{{ $question->body }}</p>
-                        @foreach($question->tags as $tag)
-                            <small class="text-muted">カテゴリ : <span class="badge badge-success ml-1">{{ $tag->title }}</span></small>
-                        @endforeach
-                    </a>
-                </div>
-            @endforeach
-        </section>
+                    @endforeach
+                </section>
+            </div>
+        </div>
     </div>
 @endsection

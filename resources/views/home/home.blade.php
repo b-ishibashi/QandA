@@ -28,7 +28,7 @@
 
 @section('content')
     @if (session('success'))
-        <div class="alert alert-success" role="alert">
+        <div class="alert alert-success w-50" role="alert">
             <strong>✓ ログインしました</strong>
         </div>
     @endif

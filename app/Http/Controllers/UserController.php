@@ -16,7 +16,10 @@ class UserController extends Controller
         $user = Auth::user();
         $questions = User::find(Auth::user()->id)->questions;
         return view('home.profile')
-            ->with(['user' => $user, 'questions' => $questions]);
+            ->with([
+                'user' => $user,
+                'questions' => $questions,
+            ]);
     }
 
     public function logout()
