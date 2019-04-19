@@ -27,6 +27,11 @@
 @endsection
 
 @section('content')
+    @if (session('success'))
+        <div class="alert alert-success" role="alert">
+            <strong>✓ ログインしました</strong>
+        </div>
+    @endif
     <div class="container">
         <h1 class="display-4 text-center mb-3">質問一覧</h1>
     </div>
@@ -35,7 +40,7 @@
     </div>
     <div class="container">
         @foreach($questions as $question)
-            <section class="question-block list-group mb-3">
+            <div class="question-block list-group mb-3">
                 <a href="{{ action('QuestionController@show', ['id' => $question->id]) }}" class="list-group-item list-group-item-action flex-column align-items-start">
                     <div class="d-flex w-100 justify-content-between">
                         <small>{{ $question->user->name }} さん</small>
@@ -47,10 +52,21 @@
                         <small class="text-muted">カテゴリ : <span class="badge badge-success ml-1">{{ $tag->title }}</span></small>
                     @endforeach
                 </a>
-            </section>
+            </div>
         @endforeach
     </div>
     <div class="container pagination">
         <span class="mx-auto">{{ $questions->links() }}</span>
     </div>
 @endsection
+
+@section('jquery')
+    <script>
+        'use strict';
+
+        $(function() {
+            $('.alert').fadeOut(3000);
+        });
+    </script>
+@endsection
+

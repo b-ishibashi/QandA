@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Intervention\Image\Facades\Image;
@@ -13,8 +14,9 @@ class UserController extends Controller
     public function showprofile()
     {
         $user = Auth::user();
+        $questions = User::find(Auth::user()->id)->questions;
         return view('home.profile')
-            ->with('user', $user);
+            ->with(['user' => $user, 'questions' => $questions]);
     }
 
     public function logout()

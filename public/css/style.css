@@ -48,3 +48,7 @@ main {
     padding: 0;
 }
 
+.user-profile {
+    max-width: 510px;
+}
+
