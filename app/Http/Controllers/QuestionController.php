@@ -4,8 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Question;
 use App\Tag;
-use App\Answer;
-use App\User;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -72,16 +71,20 @@ class QuestionController extends Controller
     {
         // create question
         $question = new Question();
-        $tag = new Tag();
 
+        // 質問のフィールド埋め
         $question->title = $request->title;
         $question->body = $request->body;
         $question->user()->associate(Auth::user());
-        $tag->title = $request->category;
+        $tag = Tag::firstOrCreate(['title' => $request->category]);
 
-        $question->save();
-        $tag->save();
-        $question->tags()->attach($tag);
+        // DBトランザクション
+        DB::transaction(function () use ($question, $tag) {
+            // 質問の新規作成
+            $question->save();
+            // 質問にタグを追加
+            $question->tags()->attach($tag);
+        });
 
         //2重送信防止
         $request->session()->regenerateToken();
@@ -90,14 +93,10 @@ class QuestionController extends Controller
 
     public function show($id)
     {
-        $question = Question::all()->find($id);
-        $answers = Question::all()->find($id)->answers;
+        $question = Question::find($id);
+        $answers = Question::find($id)->answers;
         $user = Auth::user();
         return view('home.show')
-            ->with([
-                'question' => $question,
-                'answers' => $answers,
-                'user' => $user
-            ]);
+            ->with(compact('question', 'answers', 'user'));
     }
 }

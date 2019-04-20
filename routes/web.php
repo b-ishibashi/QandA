@@ -14,7 +14,7 @@ Route::middleware('guest')->group(function () {
     Route::get('/', 'IndexController@index');
     Route::get('/add', 'RegisterController@create');
     Route::post('/add', 'RegisterController@store');
-    Route::get('/login', 'LoginController@showLoginForm')->name('login');
+    Route::get('/login', 'LoginController@showLoginForm');
     Route::post('/login', 'LoginController@login');
 });
 
