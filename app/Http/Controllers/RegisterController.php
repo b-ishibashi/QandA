@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 use App\User;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
 {
     public function create()
     {
-        return view('add');
+        return view('register');
     }
 
     public function store(Request $request)
@@ -37,7 +37,6 @@ class RegisterController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
-        $user->image = basename(asset('storage/noimage.jpg'));
         $user->save();
 
         Auth::loginUsingId($user->id);
@@ -45,6 +44,6 @@ class RegisterController extends Controller
         //ログインメッセージセット
         session()->flash('login', 'ログインしました');
 
-        return redirect('/home');
+        return redirect('/');
     }
 }

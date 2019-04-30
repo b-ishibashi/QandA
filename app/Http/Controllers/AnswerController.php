@@ -4,19 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Answer;
 use App\Question;
-use App\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Http\Request;
 
 class AnswerController extends Controller
 {
-
-    public function store($id, Request $request)
+    public function store(Request $request, Question $question)
     {
-        //$question = Question::all()->find($id);
-        //return view('answer.create')
-            //->with('question', $question);
+        $this->authorize('store', [Answer::class, $question]);
 
         $rules = [
             'answer' => 'required|max:1000'
@@ -24,8 +20,7 @@ class AnswerController extends Controller
 
         $validator = Validator::make($request->only('answer'), $rules);
 
-        if ($validator->fails())
-        {
+        if ($validator->fails()) {
             return back()
                 ->withErrors($validator)
                 ->withInput();
@@ -33,16 +28,15 @@ class AnswerController extends Controller
 
         // create answer
         $answer = new Answer();
-        $user_id = Auth::id();
         $answer->body = $request->answer;
-        $answer->user_id = $user_id;
-        $answer->question_id = $id;
-        $answer->save();
         $answer->user()->associate(Auth::user());
+        $answer->question()->associate($question);
+        $answer->save();
 
         //2重送信防止
         $request->session()->regenerateToken();
 
-        return redirect('/home/question/' . $id);
+        return redirect()
+            ->action('QuestionController@show', $question);
     }
 }

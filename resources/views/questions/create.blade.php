@@ -2,32 +2,8 @@
 
 @section('title', 'QandA')
 
-@section('header')
-    <nav class="navbar navbar-expand-sm navbar-light">
-        <h2>
-            <a class="navbar-brand text-white" href="/home">QandA</a>
-        </h2>
-        <button class="navbar-toggler" data-toggle="collapse" data-target="#menu">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div id="menu" class="collapse navbar-collapse">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a href="/home" class="nav-link">質問一覧</a>
-                </li>
-                <li class="nav-item">
-                    <a href="/home/create" class="nav-link">質問する</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/home/profile">プロフィール</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-@endsection
-
 @section('content')
-<form method="post" action="/home/create" class="form-group" enctype="multipart/form-data">
+<form method="post" action="{{ action('QuestionController@confirm') }}" class="form-group" enctype="multipart/form-data">
     @csrf
     <div class="container post-form">
         <div class="title-form row">
@@ -48,17 +24,17 @@
                 <label class="col-sm-3"></label><p class="col-sm-7"></p>
             @endif
         </div>
-        <div class="category mb-4 row">
-            <label for="category" class="col-sm-3">カテゴリー選択</label>
-            <select class="form-control col-sm-5" id="category" name="category">
-                @foreach($categories as $category)
-                    <option value="{{ $category }}">{{ $category }}</option>
+        <div class="tag mb-4 row">
+            <label for="tag" class="col-sm-3">タグ選択</label>
+            <select class="form-control col-sm-5" id="tag" name="tag">
+                @foreach($tags as $tag)
+                    <option value="{{ $tag }}">{{ $tag }}</option>
                 @endforeach
             </select>
         </div>
         <div class="send text-center">
             <input class="btn btn-primary mb-2" type="submit" value="次へ"><br>
-            <a href="/home">戻る</a>
+            <a href="{{ action('IndexController@index') }}">戻る</a>
         </div>
     </div>
 </form>

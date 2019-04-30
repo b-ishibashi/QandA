@@ -8,12 +8,28 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 
     <title>@yield('title')</title>
 </head>
 <body>
 <header class="bg-info mb-3 fixed-top">
-    @yield('header')
+    @auth
+        @component('components.header', ['menu' => [
+            action('IndexController@index') => '質問一覧',
+            action('QuestionController@create') => '質問する',
+            action('UserController@show', Auth::user()) => 'プロフィール',
+        ]])
+        @endcomponent
+    @endauth
+
+    @guest
+        @component('components.header', ['menu' => [
+            action('RegisterController@create') => 'アカウント登録',
+            action('SessionController@showLoginForm') => 'ログイン',
+        ]])
+        @endcomponent
+    @endguest
 </header>
 <main class="mb-3">
 @yield('content')

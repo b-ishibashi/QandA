@@ -40,8 +40,8 @@ class Validator extends BaseValidator
     /**
      * Run the validator's rules against its data.
      *
-     * @return array
      * @throws \Illuminate\Validation\ValidationException
+     * @return array
      */
     public function validate()
     {
@@ -53,8 +53,8 @@ class Validator extends BaseValidator
     /**
      * Get the attributes and values that were validated.
      *
-     * @return array
      * @throws \Illuminate\Validation\ValidationException
+     * @return array
      */
     public function validated()
     {

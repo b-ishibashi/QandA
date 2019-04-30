@@ -10,28 +10,41 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+// ログインしてるときとしてないときで動作を変える
+// ログインしてなかったらサイト紹介ページ、ログインしてたらホーム
+Route::get('/', 'IndexController@index');
+
 Route::middleware('guest')->group(function () {
-    Route::get('/', 'IndexController@index');
-    Route::get('/add', 'RegisterController@create');
-    Route::post('/add', 'RegisterController@store');
-    Route::get('/login', 'LoginController@showLoginForm');
-    Route::post('/login', 'LoginController@login');
+
+    // 登録フォームと登録処理
+    Route::get('/register', 'RegisterController@create');
+    Route::post('/register', 'RegisterController@store');
+
+    // ログインフォームとログイン処理
+    Route::get('/login', 'SessionController@showLoginForm');
+    Route::post('/login', 'SessionController@login');
+
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('/home', 'HomeController@index');
-    Route::get('/home/profile', 'UserController@showprofile');
-    Route::get('/home/profile/logout', 'UserController@logout');
-    Route::get('/home/profile/edit/{id}', 'UserController@edit');
-    Route::post('/home/profile/edit/{id}', 'UserController@update');
-    Route::get('/home/create', 'QuestionController@create');
-    Route::post('/home/create', 'QuestionController@confirm');
-    Route::get('/home/confirm', function () {
-        return redirect('/home');
-    });
-    Route::post('/home/confirm', 'QuestionController@store')->middleware('throttle:1,1');
-    Route::get('/home/question/{id}', 'QuestionController@show');
-    Route::post('/home/question/{id}/answer', 'AnswerController@store');
+
+    // ログアウト処理
+    Route::post('/logout', 'SessionController@logout');
+
+    // ユーザ情報（プロフィール含む）
+    Route::get('/users/{user}/edit', 'UserController@edit');
+    Route::get('/users/{user}', 'UserController@show');
+    Route::put('/users/{user}', 'UserController@update');
+
+    // 回答
+    Route::post('/questions/{question}/answer', 'AnswerController@store');
+
+    // 質問
+    Route::get('/questions/search', 'QuestionController@search');
+    Route::get('/questions/create', 'QuestionController@create');
+    Route::post('/questions/create', 'QuestionController@confirm');
+    Route::get('/questions/{question}', 'QuestionController@show');
+    Route::post('/questions', 'QuestionController@store');
+
 });
-
-

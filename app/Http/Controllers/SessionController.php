@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 
-class LoginController extends Controller
+class SessionController extends Controller
 {
     public function showLoginForm()
     {
@@ -43,6 +43,12 @@ class LoginController extends Controller
         //ログインメッセージセット
         session()->flash('login', 'ログインしました');
 
-        return redirect('/home');
+        return redirect('/');
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+        return redirect('/');
     }
 }

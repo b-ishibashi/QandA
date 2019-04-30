@@ -4,71 +4,45 @@ namespace App\Http\Controllers;
 
 use App\Question;
 use App\Tag;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class QuestionController extends Controller
 {
+    public function show(Question $question)
+    {
+        $user = Auth::user();
+        $answers = $question->answers;
+
+        return view('questions.show')
+            ->with(compact('question', 'answers', 'user'));
+    }
+
     public function create()
     {
-        $categories = array(
-            'インターネット・コンピュータ',
-            'エンターテイメント',
-            '生活・文化',
-            '社会・経済',
-            '健康と医療',
-            'ペット',
-            'グルメ',
-            '住まい',
-            '花・ガーデニング',
-            '育児',
-            '旅行・観光',
-            '写真',
-            '手芸・ハンドクラフト',
-            'スポーツ',
-            'アウトドア',
-            '美容・ビューティー',
-            'ファッション',
-            '恋愛・結婚',
-            '趣味・ホビー',
-            'ゲーム',
-            '乗り物',
-            '芸術・人文',
-            '学問・雑談',
-            '日記・雑談',
-            'ニュース',
-            '地域情報'
-        );
-
-        return view('home.create')
-            ->with('categories', $categories);
+        return view('questions.create')
+            ->with('tags', Tag::DEFAULTS);
     }
 
     public function confirm(Request $request)
     {
-        $rules = [
-            'title' => 'required|max:50',
-            'body' => 'required|max:2000',
-        ];
-
-        $validator = Validator::make($request->all(), $rules);
-
-        // バリデーション
-        if ($validator->fails())
-        {
-            return redirect('/home/create')
-                ->withErrors($validator)
-                ->withInput();
+        if ($response = $this->validateQuestionThenFailed($request)) {
+            return $response;
         }
 
-        return view('home.confirm')
+        return view('questions.confirm')
             ->with('request', $request);
     }
 
     public function store(Request $request)
     {
+        if ($response = $this->validateQuestionThenFailed($request)) {
+            return $response;
+        }
+
         // create question
         $question = new Question();
 
@@ -76,7 +50,7 @@ class QuestionController extends Controller
         $question->title = $request->title;
         $question->body = $request->body;
         $question->user()->associate(Auth::user());
-        $tag = Tag::firstOrCreate(['title' => $request->category]);
+        $tag = Tag::firstOrCreate(['title' => $request->tag]);
 
         // DBトランザクション
         DB::transaction(function () use ($question, $tag) {
@@ -88,15 +62,47 @@ class QuestionController extends Controller
 
         //2重送信防止
         $request->session()->regenerateToken();
-        return redirect('/home');
+        return redirect('/');
     }
 
-    public function show($id)
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|null
+     */
+    protected function validateQuestionThenFailed(Request $request): ?RedirectResponse
     {
-        $question = Question::find($id);
-        $answers = Question::find($id)->answers;
-        $user = Auth::user();
-        return view('home.show')
-            ->with(compact('question', 'answers', 'user'));
+        $rules = [
+            'title' => 'required|max:50',
+            'body' => 'required|max:2000',
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+
+        // バリデーション
+        if ($validator->fails()) {
+            return redirect('/questions/create')
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        return null;
+    }
+
+    public function search(Request $request)
+    {
+        //$q = (string)$this->input('search');
+        $keyword = $request->search;
+
+        if (!empty($keyword)) {
+            $questions = DB::table('questions')
+                ->where('title', 'like', '%' . $keyword . '%')
+                ->orWhere('body', 'like', '%' . $keyword . '%')
+                ->paginate(10);
+        } else {
+            $questions = DB::table('questions')
+                ->paginate(10);
+        }
+        return redirect('/home')
+            ->with(compact('questions'));
     }
 }
