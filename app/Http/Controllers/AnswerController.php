@@ -39,4 +39,13 @@ class AnswerController extends Controller
         return redirect()
             ->action('QuestionController@show', $question);
     }
+
+    public function selectForBest(Question $question, Answer $answer)
+    {
+        $question->best_answer_id = $answer->id;
+        $question->save();
+
+        return redirect()
+            ->action('QuestionController@show', $question);
+    }
 }

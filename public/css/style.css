@@ -1,24 +1,58 @@
+* {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+}
+.d-flex:not(.flex-column)>* {
+    min-width: 0;
+}
+.d-flex.flex-column>* {
+    max-width: 100%;
+}
+
+.ellipsis {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 main {
     padding-top: 100px;
+    max-width: 840px;
+    margin: 0 auto;
 }
 
-.bg-image {
-    opacity: 0.3;
-}
-
-.contents {
+.welcome {
     position: relative;
+    background: url('/img/bg.png') no-repeat center center;
+    background-size: contain;
+    max-width: 642px;
+    margin: 0 auto;
 }
 
-.contents p {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+.welcome:before {
+    content: '';
+    display: block;
+    padding-top: 54.8%; /* 表示画像の高さ ÷ 表示画像の幅 × 100 */
+}
 
+.welcome .welcome-inner-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(255,255,255,0.5);
+}
+
+.welcome .welcome-content {
     padding: 15px 30px;
     text-align: center;
-    width: 300px;
+}
+
+.welcome-questions {
+    max-width: 642px;
+    margin: 0 auto;
 }
 
 .post-form label {
@@ -27,17 +61,6 @@ main {
 
 .body-form textarea {
     height: 200px;
-}
-
-.question_tag {
-    font-size: small;
-}
-
-.question_body {
-    max-width: 300px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
 }
 
 .answer-form textarea {
@@ -52,9 +75,26 @@ main {
     max-width: 510px;
 }
 
+.question-user-name {
+    font-size: small;
+}
+
 .user-question {
     max-width: 510px;
 }
 
+.user-icon {
+    width: 180px;
+    height: 180px;
+}
 
-
+.click-to-upload-avatar {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.7);
+    margin: 0;
+    padding-top: 6px;
+    padding-bottom: 14px;
+}

@@ -32,8 +32,8 @@ class UserController extends Controller
     /**
      * @param Request $request
      * @param User $user
-     * @return \Illuminate\Http\RedirectResponse
      * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, User $user)
     {
@@ -42,7 +42,8 @@ class UserController extends Controller
 
         $rules = [
             'name' => 'required|unique:users,name,' . $user->id,
-            'email' => 'required|email|unique:users,email,' . $user->id
+            'email' => 'required|email|unique:users,email,' . $user->id,
+            'avatar' => 'nullable|file|mimes:jpeg,png,gif',
         ];
 
         $validator = Validator::make($request->all(), $rules);
@@ -54,6 +55,17 @@ class UserController extends Controller
                 ->withInput();
         }
 
+        $avatar = $request->file('avatar');
+
+        if ($avatar) {
+            //300×300にリサイズ
+            Image::make($avatar)
+                ->resize(640, 640)
+                ->save(storage_path("app/public/avatars/user-{$user->id}"));
+
+            $user->avatar = "storage/avatars/user-{$user->id}";
+        }
+
         //update
         $user->name = $request->name;
         $user->email = $request->email;
@@ -62,44 +74,6 @@ class UserController extends Controller
         //更新メッセージセット
         session()->flash('update', '更新しました');
 
-        return redirect()->action('UserController@showprofile');
-    }
-
-    /**
-     * @param Request $request
-     * @param User $user
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \Illuminate\Auth\Access\AuthorizationException
-     */
-    public function updateAvatar(Request $request, User $user)
-    {
-        // ユーザー情報のアップデート権限を確認
-        $this->authorize('update', $user); // Gate::authorize()........と同義
-
-        $validator = Validator::make($request->all(), [
-           'avatar' => 'required|file|mimes:jpeg,png,gif',
-        ]);
-
-        if ($validator->fails()) {
-            return redirect()
-                ->action('UserController@edit', $user)
-                ->withErrors($validator)
-                ->withInput();
-        }
-
-        $avatar = $request->file('avatar');
-        //300×300にリサイズ
-        Image::make($avatar)
-            ->resize(320, 226)
-            ->save(storage_path("avatars/{$avatar->getBasename()}"));
-
-        $user->avatar = "storage/avatars/{$avatar->getBasename()}";
-        $user->save();
-
-        //更新メッセージセット
-        session()->flash('update', '更新しました');
-
-        return redirect()->action('UserController@showprofile');
-
+        return redirect()->action('UserController@show', $user);
     }
 }

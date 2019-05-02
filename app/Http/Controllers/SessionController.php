@@ -9,7 +9,7 @@ use Illuminate\Validation\ValidationException;
 
 class SessionController extends Controller
 {
-    public function showLoginForm()
+    public function showLoginForm(Request $request)
     {
         return view('login');
     }
@@ -43,7 +43,7 @@ class SessionController extends Controller
         //ログインメッセージセット
         session()->flash('login', 'ログインしました');
 
-        return redirect('/');
+        return redirect()->intended('/');
     }
 
     public function logout()

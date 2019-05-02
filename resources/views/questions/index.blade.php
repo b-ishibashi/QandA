@@ -16,34 +16,29 @@
     <div class="container pagination mb-3">
         <span class="mx-auto">{{ $questions->links() }}</span>
     </div>
-    <div class="search-keywords container ">
-        <form method="post" action="{{ action('QuestionController@search') }}" class="form-group">
-            @csrf
-            <div class="input-group col-md-4 w-50">
-                <input class="form-control py-2 border-right-0 border" type="search" id="example-search-input" name="search" placeholder="search">
+    <div class="search-keywords container pb-3">
+        <form method="get" action="{{ action('IndexController@index') }}" class="form-group">
+            <div class="input-group col-md-4 w-50 p-0">
+                <input class="form-control py-2 border-right-0 border" type="text" id="example-search-input" name="q" placeholder="search" value="{{ $q }}">
                 <span class="input-group-append">
-                <button class="btn btn-outline-secondary border-left-0 border" type="submit">
-                    <i class="fa fa-search"></i>
-                </button>
-            </span>
+                    <button class="btn btn-outline-secondary border-left-0 border" type="submit">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </span>
             </div>
+            @if(strlen($q) > 0)
+                <div class="mt-2"><strong>「{{ $q }}」</strong>の検索結果</div>
+            @endif
+            @if($tag)
+                <div class="mt-2"><span class="badge badge-success">{{ $tag->title }}</span> で絞り込んでいます</div>
+                <input type="hidden" name="tag_id" value="{{ $tag->id }}">
+            @endif
         </form>
     </div>
     <div class="container">
         @foreach($questions as $question)
-            <div class="question-block list-group mb-3">
-                <a href="{{ action('QuestionController@show', $question) }}" class="list-group-item list-group-item-action flex-column align-items-start">
-                    <div class="d-flex w-100 justify-content-between">
-                        <small>{{ $question->user->name }} さん</small>
-                        <small class="text-muted">{{ $question->updated_at }}</small>
-                    </div>
-                    <h4 class="mb-1">{{ $question->title }}</h4>
-                    <p class="mb-1 question_body">{{ $question->body }}</p>
-                    @foreach($question->tags as $tag)
-                        <small class="text-muted">タグ : <span class="badge badge-success ml-1">{{ $tag->title }}</span></small>
-                    @endforeach
-                </a>
-            </div>
+            @component('components.question-card', compact('question'))
+            @endcomponent
         @endforeach
     </div>
     <div class="container pagination">
@@ -51,7 +46,7 @@
     </div>
 @endsection
 
-@section('jquery')
+@push('jquery')
     <script>
         'use strict';
 
@@ -59,5 +54,5 @@
             $('.alert').fadeOut(3000);
         });
     </script>
-@endsection
+@endpush
 

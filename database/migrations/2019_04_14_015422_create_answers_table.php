@@ -18,6 +18,7 @@ class CreateAnswersTable extends Migration
             $table->mediumText('body');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('question_id');
+            $table->timestamps();
         });
     }
 

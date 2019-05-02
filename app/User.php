@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -37,16 +38,16 @@ class User extends Authenticatable
     ];
 
     protected $attributes = [
-        'avatar' => 'img/noimage.jpg',
+        'avatar' => 'img/noimage.png',
     ];
 
-    public function questions()
+    public function questions(): HasMany
     {
-        return $this->hasMany('App\Question');
+        return $this->hasMany(Question::class);
     }
 
-    public function answers()
+    public function answers(): HasMany
     {
-        return $this->hasMany('App\Answer');
+        return $this->hasMany(Answer::class);
     }
 }

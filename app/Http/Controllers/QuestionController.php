@@ -67,7 +67,7 @@ class QuestionController extends Controller
 
     /**
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse|null
+     * @return null|\Illuminate\Http\RedirectResponse
      */
     protected function validateQuestionThenFailed(Request $request): ?RedirectResponse
     {
@@ -86,23 +86,5 @@ class QuestionController extends Controller
         }
 
         return null;
-    }
-
-    public function search(Request $request)
-    {
-        //$q = (string)$this->input('search');
-        $keyword = $request->search;
-
-        if (!empty($keyword)) {
-            $questions = DB::table('questions')
-                ->where('title', 'like', '%' . $keyword . '%')
-                ->orWhere('body', 'like', '%' . $keyword . '%')
-                ->paginate(10);
-        } else {
-            $questions = DB::table('questions')
-                ->paginate(10);
-        }
-        return redirect('/home')
-            ->with(compact('questions'));
     }
 }

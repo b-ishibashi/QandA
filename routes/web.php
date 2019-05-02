@@ -24,7 +24,6 @@ Route::middleware('guest')->group(function () {
     // ログインフォームとログイン処理
     Route::get('/login', 'SessionController@showLoginForm');
     Route::post('/login', 'SessionController@login');
-
 });
 
 Route::middleware('auth')->group(function () {
@@ -40,11 +39,13 @@ Route::middleware('auth')->group(function () {
     // 回答
     Route::post('/questions/{question}/answer', 'AnswerController@store');
 
+    // ベストアンサー作成
+    Route::post('/questions/{question}/{answer}', 'AnswerController@selectForBest');
+
     // 質問
     Route::get('/questions/search', 'QuestionController@search');
     Route::get('/questions/create', 'QuestionController@create');
     Route::post('/questions/create', 'QuestionController@confirm');
     Route::get('/questions/{question}', 'QuestionController@show');
     Route::post('/questions', 'QuestionController@store');
-
 });

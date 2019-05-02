@@ -20,7 +20,8 @@ class ConstrainAnswersTable extends Migration
             $table->foreign('question_id')
                 ->references('id')
                 ->on('questions');
-            $table->timestamps();
+
+            $table->unique(['user_id', 'question_id']);
         });
     }
 

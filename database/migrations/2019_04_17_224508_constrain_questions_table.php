@@ -17,7 +17,9 @@ class ConstrainQuestionsTable extends Migration
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users');
-            $table->timestamps();
+            $table->foreign('best_answer_id')
+                ->references('id')
+                ->on('answers');
         });
     }
 
