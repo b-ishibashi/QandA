@@ -19,8 +19,8 @@
                 @can('update', $user)
                 <small class="d-flex justify-content-end mb-1"><a href="{{ action('UserController@edit', $user) }}">プロフィールを編集する</a></small>
                 @endcan
-                <div class="profile-block">
-                    <table class="table table-bordered">
+                <div class="profile-block p-1">
+                    <table class="table">
                         <tr><th>名前: </th><td>{{ $user->name }}</td></tr>
                         @can('showEmail', $user)
                             <tr><th>メールアドレス: </th><td>{{ $user->email }}</td></tr>

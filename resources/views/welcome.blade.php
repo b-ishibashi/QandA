@@ -9,6 +9,8 @@
                 <p class="display-4">
                     QandA<br>
                     <a class="btn btn-primary" href="{{ action('RegisterController@create') }}">無料で始める</a>
+                    <aside>あなたのお悩みを共有しましょう。<br>
+                        世界中から素敵な回答が得られるはずです。</aside>
                 </p>
             </div>
         </div>
