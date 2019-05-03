@@ -27,7 +27,7 @@ class RegisterController extends Controller
 
         // validate
         if ($validator->fails()) {
-            return redirect('/add')
+            return redirect('/register')
                 ->withErrors($validator)
                 ->withInput();
         }
