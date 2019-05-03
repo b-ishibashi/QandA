@@ -18,7 +18,7 @@ class RegisterController extends Controller
     public function store(Request $request)
     {
         $rules = [
-            'name' => 'required|unique:users',
+            'name' => 'required|max:30|unique:users',
             'email' => 'required|email|unique:users',
             'password' => 'required|confirmed'
         ];

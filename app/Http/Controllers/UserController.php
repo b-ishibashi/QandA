@@ -41,7 +41,7 @@ class UserController extends Controller
         $this->authorize('update', $user); // Gate::authorize()........と同義
 
         $rules = [
-            'name' => 'required|unique:users,name,' . $user->id,
+            'name' => 'required|max:30|unique:users,name,' . $user->id,
             'email' => 'required|email|unique:users,email,' . $user->id,
             'avatar' => 'nullable|file|mimes:jpeg,png,gif',
         ];
