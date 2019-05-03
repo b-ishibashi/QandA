@@ -18,7 +18,7 @@
                 <input type="hidden" name="tag" value="{{ $request->tag }}">
                 <input class="btn btn-primary mb-2" type="submit" value="投稿する"><br>
             </form>
-            <a href="{{ action('QuestionController@create') }}">修正する</a>
+            <a href="javascript:void(0)" onclick="history.back()">修正する</a>
         </div>
     </div>
 @endsection

@@ -18,7 +18,7 @@
         <div class="body-form row">
             <label for="body" class="col-sm-3">質問内容</label>
             <textarea class="form-control col-sm-9" maxlength="2000" name="body" id="body">{{ old('body') }}</textarea>
-            @if ($errors->has('title'))
+            @if ($errors->has('body'))
                 <label class="col-sm-3"></label><p class="col-sm-7 text-danger">*{{ $errors->first('body') }}</p>
             @else
                 <label class="col-sm-3"></label><p class="col-sm-7"></p>
