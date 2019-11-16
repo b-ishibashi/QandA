@@ -37,3 +37,4 @@ class Question extends Model
         return $query->whereNull('best_answer_id');
     }
 }
+
